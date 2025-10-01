@@ -1,0 +1,14 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/header :: *">
+  <body>
+    <h2>Criar Pedido</h2>
+    <form th:action="@{/orders/create}" method="post">
+      <label>UserId: <input type="number" name="userId" /></label><br/>
+      <div th:each="p : ${products}">
+        <input type="checkbox" th:value="${p.id}" name="productId" /> <span th:text="${p.name}"></span>
+        <label>Qty: <input type="number" name="qty" value="1" /></label><br/>
+      </div>
+      <button type="submit">Finalizar compra</button>
+    </form>
+  <div th:replace="fragments/footer :: *"></div>
+</html>

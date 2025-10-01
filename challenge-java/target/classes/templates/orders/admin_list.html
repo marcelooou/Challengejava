@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/header :: *">
+  <body>
+    <h2>Pedidos (Admin)</h2>
+    <table>
+      <tr><th>ID</th><th>User</th><th>Status</th><th>Ações</th></tr>
+      <tr th:each="o : ${orders}">
+        <td th:text="${o.id}"></td>
+        <td th:text="${o.userId}"></td>
+        <td th:text="${o.status}"></td>
+        <td>
+          <form th:action="@{|/orders/approve/${o.id}|}" method="post"><button type="submit">Aprovar</button></form>
+        </td>
+      </tr>
+    </table>
+  <div th:replace="fragments/footer :: *"></div>
+</html>

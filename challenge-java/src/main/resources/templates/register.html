@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mottu Fleet - Dashboard</title>
+    <!-- Carregando Tailwind CSS para um design responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'mottu-primary': '#FF5733',
+                        'mottu-light': '#FF8A65',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Barra de Navegação -->
+    <nav class="bg-mottu-primary shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo e Título -->
+                <div class="flex-shrink-0 text-white font-bold text-xl">
+                    Mottu Fleet Manager
+                </div>
+                
+                <!-- Links de Navegação -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-4">
+                    <!-- Links visíveis apenas para Administradores -->
+                    <a th:href="@{/motos}" class="text-white hover:bg-mottu-light px-3 py-2 rounded-md text-sm font-medium">Frota (Motos)</a>
+                    <a th:href="@{/pecas}" class="text-white hover:bg-mottu-light px-3 py-2 rounded-md text-sm font-medium">Estoque (Peças)</a>
+                    <a th:href="@{/ordens}" class="text-white hover:bg-mottu-light px-3 py-2 rounded-md text-sm font-medium">Manutenção (OS)</a>
+                    <!-- Acesso a área de administração (se implementada) -->
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}" class="text-yellow-200 hover:bg-mottu-light px-3 py-2 rounded-md text-sm font-medium">Admin</a>
+                </div>
+                
+                <!-- Info do Usuário e Logout -->
+                <div class="flex items-center space-x-4">
+                    <span class="text-white text-sm">Olá, 
+                        <span sec:authentication="name" class="font-semibold"></span>!
+                    </span>
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm font-medium transition duration-150">
+                            Sair
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div class="border-4 border-dashed border-gray-200 rounded-lg h-96 flex flex-col items-center justify-center bg-white shadow-xl">
+                <h2 class="text-4xl font-extrabold text-gray-800 mb-4">Dashboard da Frota</h2>
+                <p class="text-gray-600 text-lg mb-8">
+                    Seu sistema de gestão da Mottu está funcionando e testado.
+                </p>
+                <div class="space-x-4">
+                    <a th:href="@{/motos}" class="inline-block px-6 py-3 bg-mottu-primary text-white font-semibold rounded-lg shadow-lg hover:bg-red-700 transition duration-300">
+                        Ver Frota de Motos
+                    </a>
+                    <a th:href="@{/pecas}" class="inline-block px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-lg hover:bg-gray-700 transition duration-300">
+                        Gerenciar Estoque
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

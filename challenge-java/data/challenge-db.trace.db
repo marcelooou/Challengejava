@@ -1,0 +1,18 @@
+2025-10-01 08:57:58.508000-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MOTO" not found; SQL statement:
+select m1_0.id,m1_0.ano_fabricacao,m1_0.chassi,m1_0.data_cadastro,m1_0.km_atual,m1_0.modelo,m1_0.placa,m1_0.status from moto m1_0 [42102-224]
+2025-10-01 09:04:22.506868-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MOTO" not found; SQL statement:
+select m1_0.id,m1_0.ano_fabricacao,m1_0.chassi,m1_0.data_cadastro,m1_0.km_atual,m1_0.modelo,m1_0.placa,m1_0.status from moto m1_0 [42102-224]
+2025-10-01 09:15:35.836405-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MOTO" not found; SQL statement:
+select m1_0.id,m1_0.ano_fabricacao,m1_0.chassi,m1_0.data_cadastro,m1_0.km_atual,m1_0.modelo,m1_0.placa,m1_0.status from moto m1_0 [42102-224]
+2025-10-01 09:38:28.185834-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MOTO" not found; SQL statement:
+select m1_0.id,m1_0.ano_fabricacao,m1_0.chassi,m1_0.data_cadastro,m1_0.km_atual,m1_0.modelo,m1_0.placa,m1_0.status from moto m1_0 [42102-224]
+2025-10-01 13:25:23.089631-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MOTO" not found; SQL statement:
+select m1_0.id,m1_0.ano_fabricacao,m1_0.chassi,m1_0.data_cadastro,m1_0.km_atual,m1_0.modelo,m1_0.placa,m1_0.status from moto m1_0 [42102-224]
+2025-10-01 13:41:43.629045-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MOTO" not found; SQL statement:
+select m1_0.id,m1_0.ano_fabricacao,m1_0.chassi,m1_0.data_cadastro,m1_0.km_atual,m1_0.modelo,m1_0.placa,m1_0.status from moto m1_0 [42102-224]

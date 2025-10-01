@@ -1,0 +1,14 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/header :: *">
+  <body>
+    <h2>Meus Pedidos</h2>
+    <table>
+      <tr><th>ID</th><th>Data</th><th>Status</th></tr>
+      <tr th:each="o : ${orders}">
+        <td th:text="${o.id}"></td>
+        <td th:text="${o.createdAt}"></td>
+        <td th:text="${o.status}"></td>
+      </tr>
+    </table>
+  <div th:replace="fragments/footer :: *"></div>
+</html>

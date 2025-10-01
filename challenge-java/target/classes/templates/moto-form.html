@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- O título da página é dinâmico, definido pelo MotoController -->
+    <title th:text="${pageTitle}"></title>
+    <!-- Carregando Tailwind CSS para um design responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'mottu-primary': '#FF5733',
+                        'mottu-light': '#FF8A65',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Navbar (Copiada para consistência) -->
+    <nav class="bg-mottu-primary shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 text-white font-bold text-xl">
+                    <a th:href="@{/}" class="hover:text-gray-200 transition duration-150">Mottu Fleet Manager</a>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-4">
+                    <a th:href="@{/motos}" class="bg-mottu-light text-white px-3 py-2 rounded-md text-sm font-medium">Frota (Motos)</a>
+                    <a th:href="@{/pecas}" class="text-white hover:bg-mottu-light px-3 py-2 rounded-md text-sm font-medium">Estoque (Peças)</a>
+                    <a th:href="@{/ordens}" class="text-white hover:bg-mottu-light px-3 py-2 rounded-md text-sm font-medium">Manutenção (OS)</a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}" class="text-yellow-200 hover:bg-mottu-light px-3 py-2 rounded-md text-sm font-medium">Admin</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-white text-sm">Olá, <span sec:authentication="name" class="font-semibold"></span>!</span>
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm font-medium transition duration-150">
+                            Sair
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal - Formulário -->
+    <main class="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <h1 th:text="${pageTitle}" class="text-3xl font-bold text-gray-900 mb-6"></h1>
+
+            <!-- Card do Formulário -->
+            <div class="bg-white shadow-2xl rounded-xl p-8 md:p-10 border border-gray-200">
+
+                <!-- O formulário submete para /motos e usa th:object="moto" -->
+                <form th:action="@{/motos}" th:object="${moto}" method="post" class="space-y-6">
+
+                    <!-- Campo ID (Escondido) - Necessário para Edição -->
+                    <input type="hidden" th:field="*{id}" />
+                    
+                    <!-- Campo Data Cadastro (Escondido) - Preservar data original na edição -->
+                    <input type="hidden" th:field="*{dataCadastro}" />
+
+                    <!-- Mensagens de erro globais, se houver -->
+                    <div th:if="${#fields.hasGlobalErrors()}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4">
+                        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+                    </div>
+
+                    <!-- Grid de Campos -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <!-- Campo Placa -->
+                        <div>
+                            <label for="placa" class="block text-sm font-medium text-gray-700 mb-1">Placa (Ex: ABC1234)</label>
+                            <input 
+                                type="text" 
+                                th:field="*{placa}" 
+                                id="placa" 
+                                required 
+                                placeholder="Informe a placa da moto"
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-mottu-primary focus:border-mottu-primary transition duration-150"
+                            />
+                            <p th:if="${#fields.hasErrors('placa')}" th:errors="*{placa}" class="text-red-500 text-xs mt-1"></p>
+                        </div>
+
+                        <!-- Campo Modelo -->
+                        <div>
+                            <label for="modelo" class="block text-sm font-medium text-gray-700 mb-1">Modelo (Ex: Honda CB 500)</label>
+                            <input 
+                                type="text" 
+                                th:field="*{modelo}" 
+                                id="modelo" 
+                                required 
+                                placeholder="Informe o modelo"
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-mottu-primary focus:border-mottu-primary transition duration-150"
+                            />
+                            <p th:if="${#fields.hasErrors('modelo')}" th:errors="*{modelo}" class="text-red-500 text-xs mt-1"></p>
+                        </div>
+
+                        <!-- Campo Ano -->
+                        <div>
+                            <label for="ano" class="block text-sm font-medium text-gray-700 mb-1">Ano</label>
+                            <input 
+                                type="number" 
+                                th:field="*{ano}" 
+                                id="ano" 
+                                required 
+                                placeholder="Ano de fabricação"
+                                min="1950" 
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-mottu-primary focus:border-mottu-primary transition duration-150"
+                            />
+                            <p th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}" class="text-red-500 text-xs mt-1"></p>
+                        </div>
+
+                        <!-- Campo KM Atual -->
+                        <div>
+                            <label for="kmAtual" class="block text-sm font-medium text-gray-700 mb-1">Quilometragem Atual (KM)</label>
+                            <input 
+                                type="number" 
+                                th:field="*{kmAtual}" 
+                                id="kmAtual" 
+                                required 
+                                placeholder="Quilometragem"
+                                min="0" 
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-mottu-primary focus:border-mottu-primary transition duration-150"
+                            />
+                            <p th:if="${#fields.hasErrors('kmAtual')}" th:errors="*{kmAtual}" class="text-red-500 text-xs mt-1"></p>
+                        </div>
+
+                        <!-- Campo Status (Select) -->
+                        <div>
+                            <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status da Moto</label>
+                            <select 
+                                th:field="*{status}" 
+                                id="status" 
+                                required
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-mottu-primary focus:border-mottu-primary transition duration-150 bg-white"
+                            >
+                                <option value="" disabled selected>Selecione o Status</option>
+                                <option value="Disponível">Disponível (Pronta para uso)</option>
+                                <option value="Manutenção">Manutenção (Oficina)</option>
+                                <option value="Alugada">Alugada (Em uso pelo cliente)</option>
+                                <option value="Aguardando Peça">Aguardando Peça</option>
+                            </select>
+                            <p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="text-red-500 text-xs mt-1"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Ações: Botão Salvar e Cancelar -->
+                    <div class="pt-6 flex justify-end space-x-4">
+                        <a th:href="@{/motos}" class="inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition duration-150">
+                            Cancelar
+                        </a>
+                        <button 
+                            type="submit" 
+                            class="inline-flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-lg text-sm font-medium text-white bg-mottu-primary hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mottu-primary transition duration-200"
+                        >
+                            <span th:text="${moto.id == null ? 'Cadastrar Moto' : 'Atualizar Moto'}">Salvar</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,6 @@
+com/example/challenge/controller/PecaControllerTest.class
+com/example/challenge/service/MotoServiceTest.class
+com/example/challenge/service/PecaServiceTest.class
+com/example/challenge/service/UserServiceTest.class
+com/example/challenge/service/OrdemServicoServiceTest.class
+com/example/challenge/ChallengeApplicationTests.class

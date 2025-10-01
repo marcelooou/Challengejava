@@ -1,0 +1,33 @@
+<main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+  <h2 class="text-3xl font-bold text-gray-800 mb-8">Dashboard da Frota</h2>
+
+  <!-- Cards de Métricas -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center">
+      <span class="text-4xl font-extrabold text-mottu-primary">120</span>
+      <p class="text-gray-600 mt-2">Motos Ativas</p>
+    </div>
+    <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center">
+      <span class="text-4xl font-extrabold text-yellow-500">8</span>
+      <p class="text-gray-600 mt-2">Em Manutenção</p>
+    </div>
+    <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center">
+      <span class="text-4xl font-extrabold text-green-600">245</span>
+      <p class="text-gray-600 mt-2">Peças em Estoque</p>
+    </div>
+    <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center">
+      <span class="text-4xl font-extrabold text-blue-600">15</span>
+      <p class="text-gray-600 mt-2">Ordens Abertas</p>
+    </div>
+  </div>
+
+  <!-- Ações Rápidas -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <a th:href="@{/motos}" class="bg-mottu-primary text-white font-semibold py-6 px-6 rounded-2xl shadow-lg text-center hover:bg-red-700 transition duration-300">
+      Gerenciar Frota
+    </a>
+    <a th:href="@{/pecas}" class="bg-gray-700 text-white font-semibold py-6 px-6 rounded-2xl shadow-lg text-center hover:bg-gray-800 transition duration-300">
+      Controle de Estoque
+    </a>
+  </div>
+</main>
